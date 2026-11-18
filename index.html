@@ -1,162 +1,337 @@
 <!DOCTYPE html>
-<!-- oss-template-2026:placeholder （この目印で，scripts/check.sh が「準備中」のページかどうかを見分けます） -->
-<!--
-  テンプレートの「準備中」のページです．
-  このページが https://ユーザー名.github.io/ に表示されたら，GitHub Pages の設定は成功です．
-  第7回の実習4で，このファイルを第6回で作った index.html に置きかえます．
--->
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>準備中</title>
-  <style>
-    /* ===== 色の設定 ===== */
-    :root {
-      --main-color: #2e7d32;  /* メインの色（見出し・番号） */
-      --bg-color: #f5f8f5;    /* ページの背景の色 */
-      --card-color: #ffffff;  /* カードの背景の色 */
-      --text-color: #222222;  /* 文字の色 */
-      --sub-color: #666666;   /* 補足の文字の色 */
-      --line-color: #dfe6df;  /* 区切り線の色 */
-    }
+    <!-- 文字コード設定 -->
+    <meta charset="UTF-8">
+    <!-- スマホ・レスポンシブ対応設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>バートのポートフォリオ</title>
+    
+    <style>
+        /* ==================================================
+           1. カラー変数と全体の初期設定
+           指定されたカラーコードを使用：
+           - #003F8E (ダークブルー)
+           - #0091E1 (ライトブルー)
+           - #FFFFFF (ホワイト)
+           - #FFEA00 (イエロー)
+           ================================================== */
+        :root {
+            --dark-blue: #003F8E;
+            --light-blue: #0091E1;
+            --white: #FFFFFF;
+            --yellow: #FFEA00;
+            --text-color: #1e293b;
+        }
 
-    /* パソコンやスマートフォンがダークモードのときの色 */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --main-color: #81c784;
-        --bg-color: #121512;
-        --card-color: #1e231e;
-        --text-color: #e8ece8;
-        --sub-color: #a0a8a0;
-        --line-color: #2f362f;
-      }
-    }
+        /* 全要素のリセット */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    /* ページ全体：カードを画面のまんなかに置く */
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      box-sizing: border-box;
-      font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
-      line-height: 1.8;
-      color: var(--text-color);
-      background: var(--bg-color);
-    }
+        /* 全体背景：スポーティーな「縦のストライプ」模様をCSSグラデーションで作成 */
+        body {
+            font-family: 'Helvetica Neue', Arial, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--dark-blue);
+            /* 縦ストライプ模様（ダークブルーとライトブルーの交互） */
+            background-image: repeating-linear-gradient(
+                90deg,
+                var(--dark-blue),
+                var(--dark-blue) 40px,
+                #003375 40px,
+                #003375 80px
+            );
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
 
-    /* まんなかのカード */
-    main {
-      width: 100%;
-      max-width: 600px;
-      padding: 32px 28px;
-      background: var(--card-color);
-      border-top: 6px solid var(--main-color);
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    }
+        /* メインカードコンテナ */
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+            /* スポーティーな黄色の太い上部ボーダー */
+            border-top: 8px solid var(--yellow);
+        }
 
-    h1 {
-      margin: 0 0 4px;
-      font-size: clamp(1.3rem, 6vw, 1.6rem);  /* スマートフォンでは少し小さくする */
-      line-height: 1.4;
-      color: var(--main-color);
-    }
+        /* ==================================================
+           2. ヘッダーエリア
+           ================================================== */
+        header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--light-blue) 100%);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
 
-    h2 {
-      margin: 28px 0 8px;
-      padding-bottom: 4px;
-      font-size: 1.05rem;
-      border-bottom: 1px solid var(--line-color);
-    }
+        /* ヘッダー下部のアクセントライン */
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: var(--yellow);
+        }
 
-    /* 「設定は成功」のバッジ */
-    .badge {
-      display: inline-block;
-      margin: 8px 0 0;
-      padding: 2px 12px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: var(--card-color);
-      background: var(--main-color);
-      border-radius: 999px;
-    }
+        /* 名前の見出し（スピード感・スポーティーさを出すため斜体に） */
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            font-style: italic;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
 
-    /* 「次にやること」の番号つきリスト */
-    ol {
-      margin: 0;
-      padding-left: 1.4em;
-    }
-    li {
-      margin-bottom: 6px;
-    }
-    li::marker {
-      font-weight: bold;
-      color: var(--main-color);
-    }
+        /* キャッチコピーバッジ */
+        .catchphrase {
+            display: inline-block;
+            background-color: var(--yellow);
+            color: var(--dark-blue);
+            font-weight: bold;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
 
-    /* コマンドの見た目 */
-    code {
-      padding: 1px 6px;
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: 0.88em;
-      background: var(--bg-color);
-      border-radius: 4px;
-      white-space: nowrap;  /* コマンドの途中で折り返さない */
-    }
+        /* ==================================================
+           3. メインコンテンツエリア（各セクション）
+           ================================================== */
+        main {
+            padding: 30px 20px;
+        }
 
-    /* 補足の小さな文字 */
-    .sub {
-      font-size: 0.9rem;
-      color: var(--sub-color);
-    }
+        /* セクションカード */
+        .section-card {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-left: 6px solid var(--light-blue);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
 
-    /* いちばん下の小さな文字 */
-    footer {
-      margin-top: 28px;
-      padding-top: 12px;
-      font-size: 0.8rem;
-      color: var(--sub-color);
-      border-top: 1px solid var(--line-color);
-    }
-    a {
-      color: var(--main-color);
-    }
-  </style>
+        /* セクション見出し：星モチーフ（★）と縦ストライプ風のライン */
+        h2 {
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--yellow);
+        }
+
+        /* 「星」モチーフをCSS擬似要素で配置 */
+        h2::before {
+            content: '★';
+            color: var(--yellow);
+            background-color: var(--dark-blue);
+            font-style: normal;
+            font-size: 0.9rem;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 基本情報リスト */
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #cbd5e1;
+            display: flex;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: var(--dark-blue);
+            width: 100px;
+            flex-shrink: 0;
+        }
+
+        /* プログラミング言語のタグスタイル */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .skill-tag {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 6px;
+            /* 下部にアクセントカラーのイエロー */
+            border-bottom: 3px solid var(--yellow);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ひとことメッセージボックス */
+        .message-box {
+            background-color: var(--white);
+            border: 2px dashed var(--light-blue);
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* ==================================================
+           4. フッターエリア
+           ================================================== */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 18px;
+            font-size: 0.85rem;
+            border-top: 4px solid var(--yellow);
+        }
+
+        /* 星の並び飾り（フッター） */
+        .footer-stars {
+            color: var(--yellow);
+            letter-spacing: 6px;
+            margin-bottom: 4px;
+        }
+
+        /* ==================================================
+           5. レスポンシブ対応（スマホ画面向け）
+           ================================================== */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px 5px;
+            }
+
+            header {
+                padding: 30px 15px;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            main {
+                padding: 20px 12px;
+            }
+
+            .section-card {
+                padding: 16px;
+            }
+
+            .info-list li {
+                flex-direction: column;
+            }
+
+            .info-label {
+                width: 100%;
+                margin-bottom: 2px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <main>
-    <h1>このサイトは準備中です</h1>
-    <p class="badge">GitHub Pages の設定 OK</p>
-    <p>このページが表示されていれば，あなたのリポジトリは正しく公開されています．
-      あとは，このページを自分のサイトに置きかえるだけです．</p>
 
-    <h2>次にやること</h2>
-    <ol>
-      <li>このリポジトリを，SSHのURLで <code>git clone</code> する</li>
-      <li><code>index.html</code> を，第6回で作ったサイトに置きかえる</li>
-      <li><code>bash scripts/check.sh</code> で，公開前のチェックをする</li>
-      <li><code>git add</code> → <code>git commit</code> → <code>git push origin main</code> する</li>
-      <li>数分待ってから，このページを再読み込みする</li>
-    </ol>
-    <p class="sub">再読み込みしても変わらないときは，強制再読み込み（Windows：Ctrl + F5，Mac：Command + Shift + R）を試しましょう．</p>
+    <!-- コンテンツ全体を包むコンテナ -->
+    <div class="container">
 
-    <h2>公開する前に</h2>
-    <ul>
-      <li>本名のフルネーム・学籍番号・住所・電話番号・メールアドレスが入っていないか</li>
-      <li>自己紹介に書いていないことを，AIが付け足していないか</li>
-    </ul>
-    <p class="sub">このリポジトリは Public です．サイトだけでなく，ファイルの中身やコミットの履歴も，誰でも見ることができます．</p>
+        <!-- ヘッダー：名前とキャッチコピー -->
+        <header>
+            <h1>バート</h1>
+            <div class="catchphrase">毎朝必ずコーヒーを飲みます</div>
+        </header>
 
-    <footer>
-      拓殖大学工学部『オープンソースソフトウェア』2026年度<br>
-      <a href="https://github.com/tomohitoy/oss-practice-2026/blob/main-07/chap07/README.md">第7回の資料</a>
-      ・
-      <a href="https://github.com/tomohitoy/oss-template-2026">テンプレート（tomohitoy/oss-template-2026）</a>
-    </footer>
-  </main>
+        <!-- メインコンテンツ -->
+        <main>
+
+            <!-- 基本情報 -->
+            <section class="section-card">
+                <h2>基本情報</h2>
+                <ul class="info-list">
+                    <li>
+                        <span class="info-label">名前</span>
+                        <span>バート</span>
+                    </li>
+                    <li>
+                        <span class="info-label">学年</span>
+                        <span>3</span>
+                    </li>
+                    <li>
+                        <span class="info-label">所属</span>
+                        <span>TU</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 趣味・好きなこと -->
+            <section class="section-card">
+                <h2>趣味・好きなこと</h2>
+                <p>最近、野球観戦をするようになりました</p>
+            </section>
+
+            <!-- プログラミング経験 -->
+            <section class="section-card">
+                <h2>プログラミング経験</h2>
+                <div class="skill-tags">
+                    <span class="skill-tag">java</span>
+                    <span class="skill-tag">c#</span>
+                    <span class="skill-tag">python</span>
+                    <span class="skill-tag">HTML</span>
+                    <span class="skill-tag">CSS</span>
+                    <span class="skill-tag">java script</span>
+                    <span class="skill-tag">Unity</span>
+                </div>
+            </section>
+
+            <!-- この授業で学びたいこと -->
+            <section class="section-card">
+                <h2>この授業で学びたいこと</h2>
+                <p>gitや自然言語でのコーディングなど個人開発に使えそうなこと</p>
+            </section>
+
+            <!-- ひとこと -->
+            <section class="section-card">
+                <h2>ひとこと</h2>
+                <div class="message-box">
+                    ファミマのチキンメキシカンサラダラップにどハマりしています。
+                </div>
+            </section>
+
+        </main>
+
+        <!-- フッター -->
+        <footer>
+            <div class="footer-stars">★ ★ ★</div>
+            <p>&copy; バート Portfolio</p>
+        </footer>
+
+    </div>
+
 </body>
 </html>
